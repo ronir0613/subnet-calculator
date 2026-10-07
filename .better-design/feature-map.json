@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "product": "Subnet Calculator",
+  "features": [
+    {
+      "id": "home",
+      "name": "Home",
+      "flows": [
+        {
+          "id": "view-home",
+          "name": "View home",
+          "description": "Enter an IPv4 network, review its subnet results, and continue to supporting reference material.",
+          "steps": [
+            {
+              "name": "Calculate and review a subnet",
+              "route": "/",
+              "screen": "app/page.tsx",
+              "components": [
+                "components/calculator/subnet-page-content.tsx",
+                "components/calculator/subnet-calculator.tsx",
+                "components/site-header.tsx",
+                "components/site-footer.tsx"
+              ],
+              "data": [
+                "lib/networking/ipv4.ts"
+              ]
+            }
+          ]
+        }
+      ],
+      "components": []
+    },
+    {
+      "id": "guide",
+      "name": "Guide",
+      "flows": [
+        {
+          "id": "view-guide",
+          "name": "View guide",
+          "steps": [
+            {
+              "name": "Guide",
+              "route": "/guide",
+              "screen": "app/guide/page.tsx",
+              "components": [
+                "components/guide/cidr-reference.tsx"
+              ],
+              "data": []
+            }
+          ]
+        }
+      ],
+      "components": []
+    },
+    {
+      "id": "subnet",
+      "name": "Subnet",
+      "flows": [
+        {
+          "id": "view-subnet",
+          "name": "View subnet",
+          "description": "Open a shared subnet link, review its results, then explore the address details and learning resources.",
+          "steps": [
+            {
+              "name": "Review shared subnet",
+              "route": "/subnet",
+              "screen": "app/subnet/page.tsx",
+              "components": [
+                "components/calculator/subnet-calculator.tsx",
+                "components/calculator/subnet-page-content.tsx",
+                "components/site-header.tsx",
+                "components/site-footer.tsx"
+              ],
+              "data": [
+                "lib/networking/ipv4.ts"
+              ]
+            }
+          ]
+        }
+      ],
+      "components": []
+    },
+    {
+      "id": "vlsm",
+      "name": "Vlsm",
+      "flows": [
+        {
+          "id": "view-vlsm",
+          "name": "View vlsm",
+          "steps": [
+            {
+              "name": "Vlsm",
+              "route": "/vlsm",
+              "screen": "app/vlsm/page.tsx",
+              "components": [
+                "components/vlsm/vlsm-calculator.tsx"
+              ],
+              "data": []
+            }
+          ]
+        }
+      ],
+      "components": []
+    }
+  ]
+}

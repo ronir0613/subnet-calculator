@@ -127,11 +127,36 @@ export function VlsmCalculator() {
 
       {result && (
         <section className="mt-10" aria-labelledby="allocations-title" aria-live="polite">
-          <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-border pb-3">
+          <div className="mb-6 flex flex-col gap-4">
             <h2 id="allocations-title" className="text-lg font-semibold">Subnet allocations</h2>
-            <p className="text-sm text-muted-foreground">{formatAddressCount(result.remainingAddresses)} addresses remaining</p>
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+              <div className="rounded-lg border border-border bg-card p-4 shadow-sm">
+                <div className="text-xs font-medium text-muted-foreground">Total Addresses</div>
+                <div className="mt-1.5 font-mono text-xl font-semibold tabular-nums text-foreground">
+                  {formatAddressCount(result.network.totalAddresses)}
+                </div>
+              </div>
+              <div className="rounded-lg border border-border bg-card p-4 shadow-sm">
+                <div className="text-xs font-medium text-muted-foreground">Used Addresses</div>
+                <div className="mt-1.5 font-mono text-xl font-semibold tabular-nums text-foreground">
+                  {formatAddressCount(result.network.totalAddresses - result.remainingAddresses)}
+                </div>
+              </div>
+              <div className="rounded-lg border border-border bg-card p-4 shadow-sm">
+                <div className="text-xs font-medium text-muted-foreground">Unused Addresses</div>
+                <div className="mt-1.5 font-mono text-xl font-semibold tabular-nums text-foreground">
+                  {formatAddressCount(result.remainingAddresses)}
+                </div>
+              </div>
+              <div className="rounded-lg border border-border bg-card p-4 shadow-sm">
+                <div className="text-xs font-medium text-muted-foreground">Allocated Hosts</div>
+                <div className="mt-1.5 font-mono text-xl font-semibold tabular-nums text-foreground">
+                  {formatAddressCount(result.allocations.reduce((sum, alloc) => sum + alloc.usableHosts, 0))}
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="mt-2 overflow-x-auto">
+          <div className="overflow-x-auto">
             <Table aria-label="VLSM subnet allocations" className="min-w-[46rem]">
               <TableHeader>
                 <TableRow>

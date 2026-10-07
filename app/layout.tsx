@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -41,8 +42,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Script id="theme-init" strategy="beforeInteractive">
+          {`try{var t=localStorage.getItem("subnet-calculator-theme");if(t!=="light"&&t!=="dark"){t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}document.documentElement.classList.toggle("dark",t==="dark");document.documentElement.style.colorScheme=t}catch(e){}`}
+        </Script>
+        {children}
+      </body>
     </html>
   );
 }

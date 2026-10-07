@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint app components/calculator components/vlsm components/guide components/site-header.tsx components/icons lib",
+    "lint": "eslint app components/calculator components/vlsm components/guide components/site-header.tsx components/site-footer.tsx components/theme-selector.tsx components/contact-form.tsx components/info-page.tsx components/icons lib",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test lib/networking/ipv4.test.mjs"
   },

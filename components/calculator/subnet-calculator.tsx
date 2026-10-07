@@ -21,6 +21,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { CopyValueButton } from "@/components/calculator/copy-value-button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -85,8 +86,6 @@ function ResultTable({
 }
 
 function BitVisualization({ result }: { result: SubnetResult }) {
-  const networkWidth = `${(result.networkBits / 32) * 100}%`;
-  const hostWidth = `${(result.hostBits / 32) * 100}%`;
   return (
     <section aria-labelledby="bits-heading" className="border-t border-border pt-5">
       <div className="flex items-baseline justify-between gap-3">
@@ -96,12 +95,33 @@ function BitVisualization({ result }: { result: SubnetResult }) {
         </p>
       </div>
       <div
-        className="mt-3 flex h-3 w-full overflow-hidden rounded-sm bg-muted"
+        className="mt-3 grid grid-cols-4 gap-2"
         role="img"
         aria-label={`${result.networkBits} network bits and ${result.hostBits} host bits`}
       >
-        {result.networkBits > 0 && <div className="h-full bg-primary" style={{ width: networkWidth }} />}
-        {result.hostBits > 0 && <div className="h-full bg-muted-foreground/20" style={{ width: hostWidth }} />}
+        {Array.from({ length: 4 }, (_, octet) => (
+          <span key={octet} aria-hidden="true" className="grid grid-cols-8 gap-1">
+            {Array.from({ length: 8 }, (_, bit) => {
+              const index = octet * 8 + bit;
+              const isNetworkBit = index < result.networkBits;
+              const rangeIndex = isNetworkBit ? index : index - result.networkBits;
+              const rangeLength = isNetworkBit ? result.networkBits : result.hostBits;
+              const progress = rangeLength <= 1 ? 0.5 : rangeIndex / (rangeLength - 1);
+              const shade = Math.round(35 + progress * 65);
+              return (
+                <span
+                  key={index}
+                  className={`h-4 min-w-0 ${isNetworkBit ? "" : "border border-border"}`}
+                  style={{
+                    backgroundColor: isNetworkBit
+                      ? `color-mix(in oklab, var(--primary) ${shade}%, var(--background))`
+                      : "#ffffff",
+                  }}
+                />
+              );
+            })}
+          </span>
+        ))}
       </div>
       <div className="mt-2 flex justify-between text-xs text-muted-foreground">
         <span>Network</span>
@@ -113,7 +133,7 @@ function BitVisualization({ result }: { result: SubnetResult }) {
 
 function ResultDetails({ result }: { result: SubnetResult }) {
   return (
-    <Accordion type="multiple" className="border-t border-border">
+    <Accordion type="multiple" className="grid items-start gap-x-6 border-t border-border lg:grid-cols-3">
       <AccordionItem value="details">
         <AccordionTrigger>Address details</AccordionTrigger>
         <AccordionContent>
@@ -224,78 +244,128 @@ export function SubnetCalculator({
         <p className="mt-2 max-w-xl text-sm leading-6 text-muted-foreground sm:text-base">
           Calculate IPv4 network addresses, subnet masks, host ranges, and CIDR details instantly.
         </p>
-        <form className="mt-7" onSubmit={submit} noValidate>
-          <div className="grid grid-cols-2 items-end gap-3 sm:grid-cols-[minmax(0,1fr)_8.5rem_auto_auto]">
-            <div className="col-span-2 min-w-0 sm:col-span-1">
-              <label htmlFor="subnet-input" className="mb-2 block text-sm font-medium">IPv4 address or CIDR</label>
-              <Input
-                ref={inputRef}
-                id="subnet-input"
-                name="ip"
-                value={input}
-                onChange={(event) => { setInput(event.target.value); setError(null); }}
-                placeholder="192.168.1.0/24"
-                autoComplete="off"
-                spellCheck={false}
-                aria-invalid={Boolean(error)}
-                aria-describedby={error ? "subnet-error" : "subnet-hint"}
-                className="h-11 font-mono text-base tabular-nums"
-              />
-              <p id="subnet-hint" className="mt-1.5 text-xs text-muted-foreground">CIDR or IP with a subnet mask</p>
-            </div>
-            <div>
-              <label htmlFor="subnet-prefix" className="mb-2 block text-sm font-medium">Prefix if omitted</label>
-              <Select value={prefix} onValueChange={setPrefix}>
-                <SelectTrigger id="subnet-prefix" aria-label="CIDR prefix" className="h-11 w-full bg-background">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent className="max-h-72">
-                  {Array.from({ length: 33 }, (_, value) => (
-                    <SelectItem key={value} value={String(value)}>/{value}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <Button type="submit" size="lg" className="h-11 w-full px-5">Calculate</Button>
-            <Button type="button" variant="outline" size="lg" className="col-span-2 h-11 w-full px-4 sm:col-span-1" onClick={clear}>Clear</Button>
-          </div>
-          {error && <p id="subnet-error" role="alert" className="mt-3 text-sm text-destructive">{error}</p>}
-        </form>
       </section>
 
+      <div className="mt-8 grid items-start gap-8 lg:grid-cols-[minmax(18rem,0.8fr)_minmax(0,1.2fr)] xl:gap-10">
+        <section className="min-w-0" aria-labelledby="input-title">
+          <Card>
+            <CardHeader className="p-5 pb-3">
+              <h2 id="input-title" className="text-base font-semibold">Subnet input</h2>
+            </CardHeader>
+            <CardContent className="p-5 pt-0">
+              <form onSubmit={submit} noValidate>
+                <div className="grid grid-cols-2 items-end gap-3">
+                  <div className="col-span-2 min-w-0">
+                    <label htmlFor="subnet-input" className="mb-2 block text-sm font-medium">IPv4 address or CIDR</label>
+                    <Input
+                      ref={inputRef}
+                      id="subnet-input"
+                      name="ip"
+                      value={input}
+                      onChange={(event) => { setInput(event.target.value); setError(null); }}
+                      placeholder="192.168.1.0/24"
+                      autoComplete="off"
+                      spellCheck={false}
+                      aria-invalid={Boolean(error)}
+                      aria-describedby={error ? "subnet-error" : "subnet-hint"}
+                      className="h-11 font-mono text-base tabular-nums"
+                    />
+                    <p id="subnet-hint" className="mt-1.5 text-xs text-muted-foreground">CIDR or IP with a subnet mask</p>
+                    <div className="mt-3 flex flex-wrap items-center gap-2">
+                      <span className="text-xs text-muted-foreground">Examples:</span>
+                      {[
+                        { label: "Class A", value: "10.0.0.0/8" },
+                        { label: "Class B", value: "172.16.0.0/16" },
+                        { label: "Class C", value: "192.168.1.0/24" },
+                        { label: "Localhost", value: "127.0.0.1/8" },
+                      ].map((ex) => (
+                        <Button
+                          key={ex.label}
+                          type="button"
+                          variant="secondary"
+                          size="sm"
+                          className="h-6 px-2 text-xs"
+                          onClick={() => {
+                            setInput(ex.value);
+                            setError(null);
+                            inputRef.current?.focus();
+                          }}
+                        >
+                          {ex.label}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="min-w-0">
+                    <label htmlFor="subnet-prefix" className="mb-2 block text-sm font-medium">Prefix if omitted</label>
+                    <Select value={prefix} onValueChange={setPrefix}>
+                      <SelectTrigger id="subnet-prefix" aria-label="CIDR prefix" className="h-11 w-full bg-background">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent className="max-h-72">
+                        {Array.from({ length: 33 }, (_, value) => (
+                          <SelectItem key={value} value={String(value)}>/{value}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <Button type="submit" size="lg" className="h-11 w-full px-3">Calculate</Button>
+                  <Button type="button" variant="outline" size="lg" className="col-span-2 h-11 w-full px-4" onClick={clear}>Clear</Button>
+                </div>
+                {error && <p id="subnet-error" role="alert" className="mt-3 text-sm text-destructive">{error}</p>}
+              </form>
+            </CardContent>
+          </Card>
+        </section>
+
+        <section className="min-w-0" aria-labelledby="results-title">
+          <Card>
+            <CardHeader className="flex-row items-center justify-between gap-3 border-b border-border p-5">
+              <h2 id="results-title" aria-live="polite" aria-atomic="true" className="min-w-0 text-lg font-semibold">Results {result && <span className="font-mono text-base font-medium text-muted-foreground">{result.networkAddress}{result.cidr}</span>}</h2>
+              {result && <Button type="button" variant="secondary" size="sm" className="min-h-11 shrink-0 px-4" onClick={copyAll}>Copy all</Button>}
+            </CardHeader>
+            <CardContent className="p-5">
+              {result ? (
+                <>
+                  <ResultTable rows={primaryRows} result={result} />
+                  {copyMessage && <p className="mt-2 text-xs text-muted-foreground" role="status">{copyMessage}</p>}
+                </>
+              ) : (
+                <p className="py-8 text-sm text-muted-foreground">Enter an IPv4 address to see its subnet results.</p>
+              )}
+            </CardContent>
+          </Card>
+        </section>
+      </div>
+
       {result && (
-        <section className="mt-8" aria-labelledby="results-title">
-          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-3">
-            <h2 id="results-title" aria-live="polite" aria-atomic="true" className="text-lg font-semibold">Results <span className="font-mono text-base font-medium text-muted-foreground">{result.networkAddress}{result.cidr}</span></h2>
-            <div className="flex items-center gap-2">
-              <Button type="button" variant="secondary" size="sm" className="min-h-11 px-4" onClick={copyAll}>Copy all</Button>
-            </div>
-          </div>
-          <div className="mt-1">
-            <ResultTable rows={primaryRows} result={result} />
-          </div>
-          {copyMessage && <p className="mt-2 text-xs text-muted-foreground" role="status">{copyMessage}</p>}
-          <div className="mt-5">
+        <section className="mt-12 border-t border-border pt-8" aria-labelledby="details-title">
+          <h2 id="details-title" className="text-xl font-semibold tracking-tight">More subnet details</h2>
+          <div className="mt-5 max-w-5xl">
             <BitVisualization result={result} />
           </div>
-          <div className="mt-5">
+          <div className="mt-5 max-w-5xl">
             <ResultDetails result={result} />
           </div>
         </section>
       )}
 
       <section className="mt-12 border-t border-border pt-8" aria-labelledby="reference-title">
-        <h2 id="reference-title" className="text-xl font-semibold tracking-tight">What does /24 mean?</h2>
+        <h2 id="reference-title" className="text-xl font-semibold tracking-tight">What is a subnet?</h2>
         <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
-          A /24 uses 24 bits for the network and 8 for hosts. That gives 256 addresses, usually 254 usable hosts after the network and broadcast addresses.
+          A subnet is a smaller network range inside a larger IP network. A prefix such as /24 marks how many bits identify the network.
         </p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <div className="border-t border-border pt-3">
-            <h3 className="text-sm font-medium">CIDR reference</h3>
-            <p className="mt-1 text-sm text-muted-foreground">/24: 254 hosts · /25: 126 · /26: 62 · /27: 30 · /28: 14</p>
+            <h3 className="text-sm font-medium">Keep learning</h3>
+            <ul className="mt-2 list-disc space-y-2 pl-5 text-sm">
+              <li><a className="text-primary underline-offset-4 hover:underline" href="https://www.cloudflare.com/learning/network-layer/what-is-a-subnet/" rel="noopener noreferrer" target="_blank">Cloudflare: What is a subnet?</a></li>
+              <li><a className="text-primary underline-offset-4 hover:underline" href="https://www.cisco.com/c/en/us/support/docs/ip/routing-information-protocol-rip/13788-3.html" rel="noopener noreferrer" target="_blank">Cisco: IP addressing and subnetting</a></li>
+              <li><a className="text-primary underline-offset-4 hover:underline" href="https://www.rfc-editor.org/info/rfc4632" rel="noopener noreferrer" target="_blank">IETF: CIDR technical reference (RFC 4632)</a></li>
+            </ul>
           </div>
           <div className="border-t border-border pt-3">
-            <h3 className="text-sm font-medium">More networking tools</h3>
+            <h3 className="text-sm font-medium">More subnet tools</h3>
             <p className="mt-1 flex flex-wrap gap-x-4 gap-y-2 text-sm">
               <Link className="text-primary underline-offset-4 hover:underline" href="/vlsm">VLSM calculator</Link>
               <Link className="text-primary underline-offset-4 hover:underline" href="/guide">Subnet guides</Link>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { VlsmCalculator } from "@/components/vlsm/vlsm-calculator";
 
@@ -26,16 +26,12 @@ export default function VlsmPage() {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto w-full max-w-5xl flex-1 px-4 pb-16 sm:px-6">
-        <div className="mx-auto max-w-4xl">
+      <main className="mx-auto w-full max-w-7xl flex-1 px-4 pb-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl">
           <VlsmCalculator />
         </div>
       </main>
-      <footer className="border-t border-border">
-        <div className="mx-auto max-w-5xl px-4 py-5 text-xs text-muted-foreground sm:px-6">
-          <Link className="hover:text-foreground" href="/">Subnet Calculator</Link>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

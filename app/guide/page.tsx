@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { CidrReference } from "@/components/guide/cidr-reference";
 
@@ -26,7 +27,7 @@ export default function GuidePage() {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto w-full max-w-5xl flex-1 px-4 pb-16 sm:px-6">
+      <main className="mx-auto w-full max-w-7xl flex-1 px-4 pb-16 sm:px-6 lg:px-8">
         <article className="mx-auto max-w-3xl pt-10 sm:pt-14">
           <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">IPv4 subnetting guide</h1>
           <p className="mt-2 text-sm leading-6 text-muted-foreground sm:text-base">
@@ -68,11 +69,7 @@ export default function GuidePage() {
           </section>
         </article>
       </main>
-      <footer className="border-t border-border">
-        <div className="mx-auto max-w-5xl px-4 py-5 text-xs text-muted-foreground sm:px-6">
-          IPv4 subnet calculations run in your browser.
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

@@ -1,7 +1,7 @@
 import { SubnetCalculator } from "@/components/calculator/subnet-calculator";
 import { SiteHeader } from "@/components/site-header";
 import { calculateSubnet, IPv4InputError } from "@/lib/networking/ipv4";
-import Link from "next/link";
+import { SiteFooter } from "@/components/site-footer";
 
 export type SubnetSearchParams = Promise<{ ip?: string | string[]; cidr?: string | string[] }>;
 
@@ -23,8 +23,8 @@ export async function SubnetPageContent({ searchParams }: { searchParams: Subnet
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto w-full max-w-5xl px-4 pb-16 sm:px-6">
-        <div className="mx-auto max-w-3xl">
+      <main className="mx-auto w-full max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl">
           <SubnetCalculator
             initialInput={initialInput}
             initialPrefix={initialPrefix}
@@ -33,12 +33,7 @@ export async function SubnetPageContent({ searchParams }: { searchParams: Subnet
           />
         </div>
       </main>
-      <footer className="mt-auto border-t border-border">
-        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-5 text-xs text-muted-foreground sm:px-6">
-          <span>IPv4 subnet calculations run in your browser.</span>
-          <Link className="hover:text-foreground" href="/guide">CIDR guide</Link>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }
