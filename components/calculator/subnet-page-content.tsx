@@ -2,6 +2,7 @@ import { SubnetCalculator } from "@/components/calculator/subnet-calculator";
 import { SiteHeader } from "@/components/site-header";
 import { calculateSubnet, IPv4InputError } from "@/lib/networking/ipv4";
 import { SiteFooter } from "@/components/site-footer";
+import { SubnetSeoContent } from "@/components/calculator/subnet-seo-content";
 
 export type SubnetSearchParams = Promise<{ ip?: string | string[]; cidr?: string | string[] }>;
 
@@ -31,6 +32,7 @@ export async function SubnetPageContent({ searchParams }: { searchParams: Subnet
             initialResult={initialResult}
             initialError={initialError}
           />
+          <SubnetSeoContent />
         </div>
       </main>
       <SiteFooter />

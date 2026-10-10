@@ -20,18 +20,36 @@ export const metadata: Metadata = {
     default: "Subnet Calculator — IPv4 CIDR & IP Subnet Calculator",
     template: "%s | Subnet Calculator",
   },
-  description: "Calculate IPv4 networks, CIDR ranges, subnet masks, and usable hosts with a fast, accurate subnet calculator.",
+  description: "Calculate IPv4 networks, CIDR ranges, subnet masks, and usable hosts with a fast, accurate online subnet calculator.",
+  keywords: [
+    "subnet calculator",
+    "IP subnet calculator",
+    "CIDR calculator",
+    "IPv4 subnet mask calculator",
+    "online subnetting tool",
+    "VLSM calculator",
+    "calculate IP address range",
+    "subnet mask to CIDR converter"
+  ],
   openGraph: {
     type: "website",
     title: "Subnet Calculator — IPv4 CIDR & IP Subnet Calculator",
-    description: "Calculate IPv4 networks, CIDR ranges, subnet masks, and usable hosts.",
+    description: "Easily calculate IPv4 networks, CIDR ranges, subnet masks, and usable IP addresses with our free, fast, and accurate subnet calculator.",
     siteName: "Subnet Calculator",
-    images: ["/opengraph-image"],
+    url: "/",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Subnet Calculator Preview",
+      }
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Subnet Calculator — IPv4 CIDR & IP Subnet Calculator",
-    description: "Calculate IPv4 networks, CIDR ranges, subnet masks, and usable hosts.",
+    description: "Easily calculate IPv4 networks, CIDR ranges, subnet masks, and usable IP addresses with our free, fast, and accurate subnet calculator.",
     images: ["/opengraph-image"],
   },
   robots: { index: true, follow: true },
