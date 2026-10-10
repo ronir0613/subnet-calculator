@@ -24,6 +24,6 @@ The networking engine lives in `lib/networking/ipv4.ts`. Unit tests call these p
 
 ## Deployment metadata
 
-Set `NEXT_PUBLIC_SITE_URL` to the public site origin before deployment. It is used for canonical metadata, `sitemap.xml`, and `robots.txt`. The local development fallback is `http://localhost:3000`.
+Set `NEXT_PUBLIC_SITE_URL` to the public site origin before deployment. It is used for canonical metadata, `sitemap.xml`, and `robots.txt`. The default fallback is `https://www.subnetio.com`.
 
 Set `CONTACT_EMAIL` to the public address that should receive messages from the Contact page. It is read by the server at request time. The form opens the visitor's email application; the site does not send or store messages.
