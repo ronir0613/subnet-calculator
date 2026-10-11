@@ -1,17 +1,19 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { calculateSubnet, formatAddressCount } from "@/lib/networking/ipv4";
+import { getMessages, type Locale } from "@/lib/i18n";
 
-export function CidrReference() {
+export function CidrReference({ locale = "en" }: { locale?: Locale }) {
+  const copy = getMessages(locale);
   const rows = [24, 25, 26, 27, 28].map((prefix) => calculateSubnet(`192.168.1.0/${prefix}`));
   return (
     <div className="mt-5 overflow-x-auto">
-      <Table aria-label="CIDR prefix reference" className="min-w-[34rem]">
+      <Table aria-label={copy.cidrReference} className="min-w-[34rem]">
         <TableHeader>
           <TableRow>
             <TableHead>CIDR</TableHead>
-            <TableHead>Subnet mask</TableHead>
-            <TableHead>Total addresses</TableHead>
-            <TableHead>Usable hosts</TableHead>
+            <TableHead>{copy.subnetMask}</TableHead>
+            <TableHead>{copy.totalAddresses}</TableHead>
+            <TableHead>{copy.usableHosts}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

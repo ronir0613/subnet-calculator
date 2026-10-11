@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getPageLanguageAlternates } from "@/lib/seo";
 import { ContactForm } from "@/components/contact-form";
 import { InfoPage } from "@/components/info-page";
 import { Mail, MessageSquare, LifeBuoy } from "lucide-react";
@@ -6,7 +7,7 @@ import { Mail, MessageSquare, LifeBuoy } from "lucide-react";
 export const metadata: Metadata = {
   title: "Contact Us | Subnet Calculator",
   description: "Get in touch with the Subnet Calculator team for support, feedback, or inquiries.",
-  alternates: { canonical: "/contact" },
+  alternates: { canonical: "/contact", languages: getPageLanguageAlternates("/contact") },
 };
 
 export const dynamic = "force-dynamic";

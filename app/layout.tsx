@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
+import { getMessages } from "@/lib/i18n";
+import { LocaleProvider } from "@/components/locale-provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -17,24 +19,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.subnetio.com"),
   title: {
-    default: "Subnet Calculator — IPv4 CIDR & IP Subnet Calculator",
+    default: "IPv4 Subnet Calculator",
     template: "%s | Subnet Calculator",
   },
-  description: "Calculate IPv4 networks, CIDR ranges, subnet masks, and usable hosts with a fast, accurate online subnet calculator.",
-  keywords: [
-    "subnet calculator",
-    "IP subnet calculator",
-    "CIDR calculator",
-    "IPv4 subnet mask calculator",
-    "online subnetting tool",
-    "VLSM calculator",
-    "calculate IP address range",
-    "subnet mask to CIDR converter"
-  ],
+  description: "Calculate IPv4 network and broadcast addresses, subnet masks, usable host ranges, and CIDR details. Includes subnetting and VLSM guides.",
   openGraph: {
     type: "website",
-    title: "Subnet Calculator — IPv4 CIDR & IP Subnet Calculator",
-    description: "Easily calculate IPv4 networks, CIDR ranges, subnet masks, and usable IP addresses with our free, fast, and accurate subnet calculator.",
+    title: "IPv4 Subnet Calculator",
+    description: "Calculate IPv4 network and broadcast addresses, subnet masks, usable host ranges, and CIDR details.",
     siteName: "Subnet Calculator",
     url: "/",
     images: [
@@ -48,8 +40,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Subnet Calculator — IPv4 CIDR & IP Subnet Calculator",
-    description: "Easily calculate IPv4 networks, CIDR ranges, subnet masks, and usable IP addresses with our free, fast, and accurate subnet calculator.",
+    title: "IPv4 Subnet Calculator",
+    description: "Calculate IPv4 network and broadcast addresses, subnet masks, usable host ranges, and CIDR details.",
     images: ["/opengraph-image"],
   },
   robots: { index: true, follow: true },
@@ -59,10 +51,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full overflow-x-clip antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col overflow-x-clip">
         <Script id="theme-init" strategy="beforeInteractive">
           {`try{var t=localStorage.getItem("subnet-calculator-theme");if(t!=="light"&&t!=="dark"){t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}document.documentElement.classList.toggle("dark",t==="dark");document.documentElement.style.colorScheme=t}catch(e){}`}
         </Script>
@@ -78,7 +70,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           `}
         </Script>
 
-        {children}
+        <LocaleProvider locale="en" messages={getMessages("en")} setDocumentLocale={false}>{children}</LocaleProvider>
       </body>
     </html>
   );

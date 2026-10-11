@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { getPageLanguageAlternates } from "@/lib/seo";
+import { LocalizedLink } from "@/components/localized-link";
 import { InfoPage } from "@/components/info-page";
 import { Network, Server } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About Us | IPv4 Subnet Calculator",
   description: "Learn about the mission and technology behind our professional IPv4 subnet, CIDR, and VLSM tools.",
-  alternates: { canonical: "/about" },
+  alternates: { canonical: "/about", languages: getPageLanguageAlternates("/about") },
 };
 
 export default function AboutPage() {
@@ -51,9 +52,9 @@ export default function AboutPage() {
           Whether you are designing a scalable data center infrastructure, configuring a local branch office, or preparing for Cisco CCNA and CompTIA Network+ certifications, our tools are built to support your workflow.
         </p>
         <p className="mt-8">
-          <Link className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2" href="/">
+          <LocalizedLink className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2" href="/">
             Go to Calculator
-          </Link>
+          </LocalizedLink>
         </p>
       </section>
     </InfoPage>

@@ -1,22 +1,22 @@
 import type { MetadataRoute } from "next";
+import { localeOptions, localizedSlugs } from "@/lib/i18n";
 
 const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.subnetio.com").replace(/\/$/, "");
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
+  const canonicalSlugs = localizedSlugs.filter((slug) => slug !== "subnet");
 
-  return [
-    { path: "", priority: 1 },
-    { path: "/vlsm", priority: 0.9 },
-    { path: "/guide", priority: 0.8 },
-    { path: "/about", priority: 0.5 },
-    { path: "/contact", priority: 0.5 },
-    { path: "/privacy", priority: 0.3 },
-    { path: "/terms", priority: 0.3 }
-  ].map(({ path, priority }) => ({
-    url: `${baseUrl}${path}`,
-    lastModified,
-    changeFrequency: path === "" || path === "/vlsm" ? "weekly" : "monthly",
-    priority,
-  }));
+  return canonicalSlugs.flatMap((slug) => {
+    const englishPath = slug ? `/${slug}` : "/";
+    const languages = Object.fromEntries([
+      ["en", `${baseUrl}${englishPath}`],
+      ["x-default", `${baseUrl}${englishPath}`],
+      ...localeOptions.map(({ code, tag }) => [tag, `${baseUrl}/${code}${slug ? `/${slug}` : ""}`]),
+    ]);
+
+    return [englishPath, ...localeOptions.map(({ code }) => `/${code}${slug ? `/${slug}` : ""}`)].map((path) => ({
+      url: `${baseUrl}${path}`,
+      alternates: { languages },
+    }));
+  });
 }

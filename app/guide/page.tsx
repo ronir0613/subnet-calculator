@@ -3,11 +3,13 @@ import Link from "next/link";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { CidrReference } from "@/components/guide/cidr-reference";
+import { GuideSeoContent } from "@/components/guide/guide-seo-content";
+import { getPageLanguageAlternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "IPv4 Subnetting Guide and CIDR Reference",
   description: "Learn what subnets, CIDR prefixes, subnet masks, and usable host counts mean with a practical IPv4 reference.",
-  alternates: { canonical: "/guide" },
+  alternates: { canonical: "/guide", languages: getPageLanguageAlternates("/guide") },
   openGraph: {
     type: "website",
     title: "IPv4 Subnetting Guide and CIDR Reference",
@@ -59,6 +61,8 @@ export default function GuidePage() {
             <h2 className="text-xl font-semibold tracking-tight">CIDR reference</h2>
             <CidrReference />
           </section>
+
+          <GuideSeoContent />
 
           <section className="mt-8 border-t border-border pt-5">
             <h2 className="text-xl font-semibold tracking-tight">Next steps</h2>

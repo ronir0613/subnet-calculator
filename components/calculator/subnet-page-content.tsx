@@ -3,10 +3,11 @@ import { SiteHeader } from "@/components/site-header";
 import { calculateSubnet, IPv4InputError } from "@/lib/networking/ipv4";
 import { SiteFooter } from "@/components/site-footer";
 import { SubnetSeoContent } from "@/components/calculator/subnet-seo-content";
+import { getMessages, type Locale } from "@/lib/i18n";
 
 export type SubnetSearchParams = Promise<{ ip?: string | string[]; cidr?: string | string[] }>;
 
-export async function SubnetPageContent({ searchParams }: { searchParams: SubnetSearchParams }) {
+export async function SubnetPageContent({ searchParams, locale = "en" }: { searchParams: SubnetSearchParams; locale?: Locale }) {
   const query = await searchParams;
   const inputIp = Array.isArray(query.ip) ? query.ip[0] : query.ip;
   const inputCidr = Array.isArray(query.cidr) ? query.cidr[0] : query.cidr;
@@ -18,7 +19,7 @@ export async function SubnetPageContent({ searchParams }: { searchParams: Subnet
   try {
     initialResult = calculateSubnet(initialInput, inputCidr ?? initialPrefix);
   } catch (error) {
-    initialError = error instanceof IPv4InputError ? error.message : "Check the address and prefix, then try again.";
+    initialError = locale === "en" && error instanceof IPv4InputError ? error.message : getMessages(locale).validation;
   }
 
   return (
@@ -31,11 +32,12 @@ export async function SubnetPageContent({ searchParams }: { searchParams: Subnet
             initialPrefix={initialPrefix}
             initialResult={initialResult}
             initialError={initialError}
+            locale={locale}
           />
-          <SubnetSeoContent />
+          <SubnetSeoContent locale={locale} />
         </div>
       </main>
-      <SiteFooter />
+      <SiteFooter locale={locale} />
     </>
   );
 }

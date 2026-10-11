@@ -2,11 +2,9 @@
 
 import * as React from "react"
 import * as AccordionPrimitive from "@radix-ui/react-accordion"
-import { motion } from "motion/react"
 
 import { NavArrowDownIcon } from "@/components/icons"
 import { cn } from "@/lib/utils"
-import { useDataState, springStateChange } from "@/lib/motion"
 
 const Accordion = AccordionPrimitive.Root
 
@@ -47,20 +45,12 @@ function AccordionContent({
   children,
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Content>) {
-  const contentRef = React.useRef<HTMLDivElement>(null)
-  const dataState = useDataState(contentRef)
-  const isOpen = dataState === "open"
-
   return (
-    <AccordionPrimitive.Content ref={contentRef} forceMount className="text-sm" {...props}>
-      <motion.div
-        animate={isOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
-        transition={springStateChange}
-        initial={false}
-        className="overflow-hidden"
-      >
-        <div className={cn("pb-4 pt-0 text-muted-foreground", className)}>{children}</div>
-      </motion.div>
+    <AccordionPrimitive.Content
+      className="overflow-hidden text-sm data-[state=open]:animate-[accordion-down_180ms_ease-out] data-[state=closed]:animate-[accordion-up_180ms_ease-out]"
+      {...props}
+    >
+      <div className={cn("pb-4 pt-0 text-muted-foreground", className)}>{children}</div>
     </AccordionPrimitive.Content>
   )
 }

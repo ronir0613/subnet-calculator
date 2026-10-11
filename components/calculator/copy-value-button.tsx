@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import type { Locale } from "@/lib/i18n";
+import { useLocale } from "@/components/locale-provider";
 
-export function CopyValueButton({ value, label }: { value: string; label: string }) {
+export function CopyValueButton({ value, label, locale = "en" }: { value: string; label: string; locale?: Locale }) {
+  const { copy } = useLocale();
   const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
 
   async function copyValue() {
@@ -23,9 +26,9 @@ export function CopyValueButton({ value, label }: { value: string; label: string
       size="sm"
       className="min-h-11 px-2 text-xs"
       onClick={copyValue}
-      aria-label={`Copy ${label}`}
+      aria-label={`${copy.copy} ${label}`}
     >
-      {state === "copied" ? "Copied" : state === "failed" ? "Select value" : "Copy"}
+      {state === "copied" ? copy.copied : state === "failed" ? copy.selectValue : copy.copy}
     </Button>
   );
 }

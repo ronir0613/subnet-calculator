@@ -3,6 +3,7 @@
 import { useSyncExternalStore } from "react";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { HalfMoonIcon, SunLightIcon } from "@/components/icons";
+import { useLocale } from "@/components/locale-provider";
 
 type Theme = "light" | "dark";
 const storageKey = "subnet-calculator-theme";
@@ -29,6 +30,7 @@ function applyTheme(theme: Theme) {
 }
 
 export function ThemeSelector() {
+  const { copy } = useLocale();
   const theme = useSyncExternalStore(subscribeToTheme, getTheme, getServerTheme);
 
   function chooseTheme(value: string) {
@@ -44,20 +46,19 @@ export function ThemeSelector() {
   return (
     <div className="flex shrink-0 items-center">
       <ToggleGroup
-        aria-label="Color appearance"
+        aria-label={copy.appearance}
         className="h-11"
         onValueChange={chooseTheme}
-        size="sm"
         type="single"
         value={theme}
       >
-        <ToggleGroupItem aria-label="Light appearance" className="min-h-11 gap-1.5 px-3 text-xs" value="light">
+        <ToggleGroupItem aria-label={copy.lightAppearance} className="min-h-11 gap-1 px-2 text-xs sm:gap-1.5 sm:px-3" value="light">
           <SunLightIcon aria-hidden="true" className="size-4" />
-          Light
+          <span className="hidden sm:inline">{copy.light}</span>
         </ToggleGroupItem>
-        <ToggleGroupItem aria-label="Dark appearance" className="min-h-11 gap-1.5 px-3 text-xs" value="dark">
+        <ToggleGroupItem aria-label={copy.darkAppearance} className="min-h-11 gap-1 px-2 text-xs sm:gap-1.5 sm:px-3" value="dark">
           <HalfMoonIcon aria-hidden="true" className="size-4" />
-          Dark
+          <span className="hidden sm:inline">{copy.dark}</span>
         </ToggleGroupItem>
       </ToggleGroup>
     </div>

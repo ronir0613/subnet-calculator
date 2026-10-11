@@ -2,11 +2,8 @@
 
 import * as React from "react"
 import * as SelectPrimitive from "@radix-ui/react-select"
-import { motion } from "motion/react"
-
 import { CheckIcon, NavArrowDownIcon } from "@/components/icons"
 import { cn } from "@/lib/utils"
-import { springInteraction } from "@/lib/motion"
 import { formFieldBase } from "./_shared"
 
 const Select = SelectPrimitive.Root
@@ -57,22 +54,15 @@ function SelectContent({
         position={position}
         {...props}
       >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={springInteraction}
-          style={{ transformOrigin: "var(--radix-select-content-transform-origin)" }}
+        <SelectPrimitive.Viewport
+          className={cn(
+            "p-1",
+            position === "popper" &&
+              "w-full min-w-[var(--radix-select-trigger-width)]"
+          )}
         >
-          <SelectPrimitive.Viewport
-            className={cn(
-              "p-1",
-              position === "popper" &&
-                "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]"
-            )}
-          >
-            {children}
-          </SelectPrimitive.Viewport>
-        </motion.div>
+          {children}
+        </SelectPrimitive.Viewport>
       </SelectPrimitive.Content>
     </SelectPrimitive.Portal>
   )

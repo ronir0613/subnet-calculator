@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { SubnetPageContent } from "@/components/calculator/subnet-page-content";
+import { getPageLanguageAlternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "/" },
+  alternates: { canonical: "/", languages: getPageLanguageAlternates("/") },
 };
 
 export default function HomePage({ searchParams }: { searchParams: import("@/components/calculator/subnet-page-content").SubnetSearchParams }) {

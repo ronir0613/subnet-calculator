@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { getPageLanguageAlternates } from "@/lib/seo";
+import { LocalizedLink } from "@/components/localized-link";
 import { InfoPage } from "@/components/info-page";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Subnet Calculator",
   description: "How the Subnet Calculator platform handles your data, calculator inputs, and privacy.",
-  alternates: { canonical: "/privacy" },
+  alternates: { canonical: "/privacy", languages: getPageLanguageAlternates("/privacy") },
 };
 
 export default function PrivacyPage() {
@@ -33,7 +34,7 @@ export default function PrivacyPage() {
       <section className="mb-8">
         <h2>3. Local Storage</h2>
         <p>
-          We use your browser's local storage (localStorage) exclusively to remember your UI preferences, such as your chosen light or dark theme. This data never leaves your browser and is not associated with any personal account, as we do not require user registration.
+          We use your browser&apos;s local storage (localStorage) exclusively to remember your UI preferences, such as your chosen light or dark theme. This data never leaves your browser and is not associated with any personal account, as we do not require user registration.
         </p>
       </section>
 
@@ -47,7 +48,7 @@ export default function PrivacyPage() {
       <section>
         <h2>5. Inquiries</h2>
         <p>
-          If you have any questions or concerns regarding this privacy policy, please reach out via our <Link className="text-primary underline-offset-4 hover:underline font-medium" href="/contact">Contact Page</Link>.
+          If you have any questions or concerns regarding this privacy policy, please reach out via our <LocalizedLink className="text-primary underline-offset-4 hover:underline font-medium" href="/contact">Contact Page</LocalizedLink>.
         </p>
       </section>
     </InfoPage>
