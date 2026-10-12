@@ -53,6 +53,41 @@
       "components": []
     },
     {
+      "id": "quiz",
+      "name": "Quiz",
+      "flows": [
+        {
+          "id": "study-subnetting",
+          "name": "Study subnetting",
+          "description": "Choose a topic set, answer questions with immediate feedback, and review explanations and results.",
+          "steps": [
+            {
+              "name": "Choose a quiz set",
+              "route": "/quiz",
+              "screen": "app/quiz/page.tsx",
+              "components": ["components/quiz/quiz-page-content.tsx", "components/quiz/quiz-content.tsx", "components/site-header.tsx", "components/site-footer.tsx"],
+              "data": []
+            },
+            {
+              "name": "Answer and review questions",
+              "route": "/quiz",
+              "screen": "components/quiz/quiz-content.tsx",
+              "components": ["components/ui/button.tsx", "components/ui/radio-group.tsx"],
+              "data": ["components/quiz/quiz-content.tsx"]
+            },
+            {
+              "name": "Review set results",
+              "route": "/quiz",
+              "screen": "components/quiz/quiz-content.tsx",
+              "components": ["components/quiz/quiz-content.tsx"],
+              "data": ["components/quiz/quiz-content.tsx"]
+            }
+          ]
+        }
+      ],
+      "components": []
+    },
+    {
       "id": "subnet",
       "name": "Subnet",
       "flows": [

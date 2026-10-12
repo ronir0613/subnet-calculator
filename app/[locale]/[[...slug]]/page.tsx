@@ -7,6 +7,8 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { VlsmCalculator } from "@/components/vlsm/vlsm-calculator";
 import { VlsmSeoContent } from "@/components/vlsm/vlsm-seo-content";
+import { QuizPageContent } from "@/components/quiz/quiz-page-content";
+import { getQuizTranslation } from "@/components/quiz/quiz-translations";
 import AboutPage from "@/app/about/page";
 import ContactPage from "@/app/contact/page";
 import PrivacyPage from "@/app/privacy/page";
@@ -25,11 +27,13 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/[[...slu
   const { locale, slug = [] } = await params;
   if (!isLocale(locale)) return {};
   const copy = getMessages(locale);
+  const quizCopy = getQuizTranslation(locale);
   const route = slug.join("/");
   const titles: Record<string, string> = {
     "": copy.title,
     subnet: copy.title,
     guide: copy.guideTitle,
+    quiz: quizCopy?.pageTitle ?? "IPv4 subnetting quiz",
     vlsm: copy.vlsmTitle,
     about: copy.aboutTitle,
     contact: copy.contactTitle,
@@ -42,6 +46,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/[[...slu
     "": copy.intro,
     subnet: copy.intro,
     guide: copy.guideIntro,
+    quiz: quizCopy?.pageIntro ?? "Practice subnet masks, host counts, network ranges, and subnet design with short quizzes and worked explanations.",
     vlsm: copy.vlsmIntro,
   };
   const title = titles[route] ?? copy.title;
@@ -77,7 +82,7 @@ function GuidePage({ locale }: { locale: Locale }) {
           <section className="mt-8 border-t border-border pt-5"><h2 className="text-xl font-semibold tracking-tight">{copy.howMany24}</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">{copy.hosts24}</p></section>
           <section className="mt-8 border-t border-border pt-5"><h2 className="text-xl font-semibold tracking-tight">{copy.cidrReference}</h2><CidrReference locale={locale} /></section>
           <GuideSeoContent locale={locale} />
-          <section className="mt-8 border-t border-border pt-5"><h2 className="text-xl font-semibold tracking-tight">{copy.nextSteps}</h2><p className="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-sm"><Link className="text-primary underline-offset-4 hover:underline" href={`/${locale}`}>{copy.calculateSubnet}</Link><Link className="text-primary underline-offset-4 hover:underline" href={`/${locale}/vlsm`}>{copy.allocateVlsm}</Link></p></section>
+          <section className="mt-8 border-t border-border pt-5"><h2 className="text-xl font-semibold tracking-tight">{copy.nextSteps}</h2><p className="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-sm"><Link className="text-primary underline-offset-4 hover:underline" href={`/${locale}`}>{copy.calculateSubnet}</Link><Link className="text-primary underline-offset-4 hover:underline" href={`/${locale}/vlsm`}>{copy.allocateVlsm}</Link><Link className="text-primary underline-offset-4 hover:underline" href={`/${locale}/quiz`}>{copy.quizNav}</Link></p></section>
         </article>
       </main>
       <SiteFooter locale={locale} />
@@ -94,6 +99,7 @@ export default async function LocalizedPage({
   const route = slug.join("/");
   if (route === "" || route === "subnet") return <SubnetPageContent searchParams={searchParams} locale={locale} />;
   if (route === "guide") return <GuidePage locale={locale} />;
+  if (route === "quiz") return <QuizPageContent locale={locale} />;
   if (route === "vlsm") return <><SiteHeader /><main className="mx-auto w-full max-w-7xl flex-1 px-4 pb-16 sm:px-6 lg:px-8"><div className="mx-auto max-w-6xl"><VlsmCalculator locale={locale} /><VlsmSeoContent locale={locale} /></div></main><SiteFooter locale={locale} /></>;
   if (route === "about") return <AboutPage />;
   if (route === "contact") return <ContactPage />;

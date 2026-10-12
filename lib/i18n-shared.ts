@@ -9,7 +9,7 @@ export const localeOptions = [
 
 export type Locale = (typeof localeOptions)[number]["code"] | "en";
 
-export const localizedSlugs = ["", "guide", "vlsm", "subnet", "about", "contact", "privacy", "terms"] as const;
+export const localizedSlugs = ["", "guide", "quiz", "vlsm", "subnet", "about", "contact", "privacy", "terms"] as const;
 
 export function localizedPath(locale: Locale, path: string): string {
   const normalized = path.startsWith("/") ? path : `/${path}`;

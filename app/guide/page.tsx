@@ -69,6 +69,7 @@ export default function GuidePage() {
             <p className="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-sm">
               <Link className="text-primary underline-offset-4 hover:underline" href="/">Calculate a subnet</Link>
               <Link className="text-primary underline-offset-4 hover:underline" href="/vlsm">Allocate with VLSM</Link>
+              <Link className="text-primary underline-offset-4 hover:underline" href="/quiz">Practice the quiz</Link>
             </p>
           </section>
         </article>

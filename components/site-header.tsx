@@ -19,6 +19,7 @@ export function SiteHeader() {
   const links = [
     { href: "/vlsm", label: copy.vlsmNav },
     { href: "/guide", label: copy.guideNav },
+    { href: "/quiz", label: copy.quizNav },
   ];
 
   return (
