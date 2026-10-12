@@ -43,7 +43,8 @@
               "route": "/guide",
               "screen": "app/guide/page.tsx",
               "components": [
-                "components/guide/cidr-reference.tsx"
+                "components/guide/cidr-reference.tsx",
+                "components/guide/study-resources.tsx"
               ],
               "data": []
             }

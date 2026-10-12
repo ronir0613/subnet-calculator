@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CidrReference } from "@/components/guide/cidr-reference";
 import { GuideSeoContent } from "@/components/guide/guide-seo-content";
+import { StudyResources } from "@/components/guide/study-resources";
 import { SubnetPageContent } from "@/components/calculator/subnet-page-content";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -82,6 +83,7 @@ function GuidePage({ locale }: { locale: Locale }) {
           <section className="mt-8 border-t border-border pt-5"><h2 className="text-xl font-semibold tracking-tight">{copy.howMany24}</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">{copy.hosts24}</p></section>
           <section className="mt-8 border-t border-border pt-5"><h2 className="text-xl font-semibold tracking-tight">{copy.cidrReference}</h2><CidrReference locale={locale} /></section>
           <GuideSeoContent locale={locale} />
+          <StudyResources locale={locale} />
           <section className="mt-8 border-t border-border pt-5"><h2 className="text-xl font-semibold tracking-tight">{copy.nextSteps}</h2><p className="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-sm"><Link className="text-primary underline-offset-4 hover:underline" href={`/${locale}`}>{copy.calculateSubnet}</Link><Link className="text-primary underline-offset-4 hover:underline" href={`/${locale}/vlsm`}>{copy.allocateVlsm}</Link><Link className="text-primary underline-offset-4 hover:underline" href={`/${locale}/quiz`}>{copy.quizNav}</Link></p></section>
         </article>
       </main>

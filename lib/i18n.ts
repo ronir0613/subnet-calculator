@@ -110,6 +110,24 @@ const english = {
   cloudflareLink: "Cloudflare: What is a subnet?",
   ciscoLink: "Cisco: IP addressing and subnetting",
   ietfLink: "IETF: CIDR technical reference (RFC 4632)",
+  studyResources: "Popular subnetting study resources",
+  studyResourcesIntro: "Lessons, hands-on exercises, and exam review from established networking educators.",
+  ciscoStudyTitle: "Cisco Networking Academy: Calculate IPv4 Subnets",
+  ciscoStudyDescription: "A hands-on worksheet covering masks, subnet counts, host ranges, and broadcast addresses.",
+  practicalStudyTitle: "Practical Networking: Subnetting Mastery",
+  practicalStudyDescription: "A free lesson series with worked examples and a subnetting practice tool.",
+  umassStudyTitle: "UMass: Interactive Subnet Addressing",
+  umassStudyDescription: "A university exercise on sizing and assigning subnets, with solutions.",
+  messerStudyTitle: "Professor Messer: IPv4 Subnet Masks",
+  messerStudyDescription: "An exam-focused video lesson on subnet masks and CIDR notation.",
+  w3StudyTitle: "W3Schools: IP Subnet Calculator",
+  w3StudyDescription: "A quick tool to check CIDR prefixes, masks, network addresses, and host ranges.",
+  geeksStudyTitle: "GeeksforGeeks: Introduction to Subnetting",
+  geeksStudyDescription: "A written introduction to subnetting, subnet masks, and IPv4 address ranges.",
+  tutorialStudyTitle: "TutorialsPoint: IPv4 Subnetting",
+  tutorialStudyDescription: "A reference with examples of subnet masks and dividing IP networks.",
+  networkLessonsTitle: "NetworkLessons: Subnetting Course",
+  networkLessonsDescription: "A structured course covering binary and decimal subnetting, VLSM, and more.",
   appearance: "Color appearance",
   lightAppearance: "Light appearance",
   darkAppearance: "Dark appearance",
@@ -167,12 +185,98 @@ const translationExtras: Partial<Record<Exclude<Locale, "en">, Partial<Messages>
   fr: { referenceDescription: "Un sous-réseau est une plage plus petite au sein d’un réseau IP plus vaste. Un préfixe comme /24 indique le nombre de bits qui identifient le réseau.", calculationTemplate: "Le préfixe /{cidr} fixe {networkBits} bits réseau. L’adresse réseau résulte de l’opération AND entre l’IP saisie et le masque ; les {hostBits} bits restants identifient les adresses du sous-réseau.", moreTools: "Autres outils réseau", unicast: "Monodiffusion", private: "Privée", public: "Publique", requested: "demandés", remainingRange: "Plage restante", cloudflareLink: "Cloudflare : Qu’est-ce qu’un sous-réseau ?", ciscoLink: "Cisco : Adressage IP et sous-réseaux", ietfLink: "IETF : Référence technique CIDR (RFC 4632)", appearance: "Apparence des couleurs", lightAppearance: "Apparence claire", darkAppearance: "Apparence sombre", light: "Clair", dark: "Sombre" },
 };
 
+const studyResourceTranslations: Record<Locale, Pick<Messages,
+  "studyResources" | "studyResourcesIntro" | "ciscoStudyTitle" | "ciscoStudyDescription" |
+  "practicalStudyTitle" | "practicalStudyDescription" | "umassStudyTitle" | "umassStudyDescription" |
+  "messerStudyTitle" | "messerStudyDescription" | "w3StudyTitle" | "w3StudyDescription" |
+  "geeksStudyTitle" | "geeksStudyDescription" | "tutorialStudyTitle" | "tutorialStudyDescription" |
+  "networkLessonsTitle" | "networkLessonsDescription"
+>> = {
+  en: {
+    studyResources: "Popular subnetting study resources", studyResourcesIntro: "Lessons, hands-on exercises, and exam review from established networking educators.",
+    ciscoStudyTitle: "Cisco Networking Academy: Calculate IPv4 Subnets", ciscoStudyDescription: "A hands-on worksheet covering masks, subnet counts, host ranges, and broadcast addresses.",
+    practicalStudyTitle: "Practical Networking: Subnetting Mastery", practicalStudyDescription: "A free lesson series with worked examples and a subnetting practice tool.",
+    umassStudyTitle: "UMass: Interactive Subnet Addressing", umassStudyDescription: "A university exercise on sizing and assigning subnets, with solutions.",
+    messerStudyTitle: "Professor Messer: IPv4 Subnet Masks", messerStudyDescription: "An exam-focused video lesson on subnet masks and CIDR notation.",
+    w3StudyTitle: "W3Schools: IP Subnet Calculator", w3StudyDescription: "A quick tool to check CIDR prefixes, masks, network addresses, and host ranges.",
+    geeksStudyTitle: "GeeksforGeeks: Introduction to Subnetting", geeksStudyDescription: "A written introduction to subnetting, subnet masks, and IPv4 address ranges.",
+    tutorialStudyTitle: "TutorialsPoint: IPv4 Subnetting", tutorialStudyDescription: "A reference with examples of subnet masks and dividing IP networks.",
+    networkLessonsTitle: "NetworkLessons: Subnetting Course", networkLessonsDescription: "A structured course covering binary and decimal subnetting, VLSM, and more.",
+  },
+  zh: {
+    studyResources: "热门子网学习资源", studyResourcesIntro: "来自网络教育机构的课程、动手练习和考试复习资料。",
+    ciscoStudyTitle: "Cisco 网络学院：计算 IPv4 子网", ciscoStudyDescription: "动手练习题，涵盖掩码、子网数量、主机范围和广播地址。",
+    practicalStudyTitle: "Practical Networking：子网精通课程", practicalStudyDescription: "免费的系列课程，包含例题讲解和子网练习工具。",
+    umassStudyTitle: "马萨诸塞大学：交互式子网寻址", umassStudyDescription: "大学课程练习，学习子网容量规划和分配，并查看解答。",
+    messerStudyTitle: "Professor Messer：IPv4 子网掩码", messerStudyDescription: "面向考试的子网掩码与 CIDR 表示法视频课程。",
+    w3StudyTitle: "W3Schools：IP 子网计算器", w3StudyDescription: "快速查看 CIDR 前缀、掩码、网络地址和主机范围。",
+    geeksStudyTitle: "GeeksforGeeks：子网划分入门", geeksStudyDescription: "介绍子网划分、子网掩码和 IPv4 地址范围的文章。",
+    tutorialStudyTitle: "TutorialsPoint：IPv4 子网划分", tutorialStudyDescription: "通过示例讲解子网掩码和 IP 网络划分。",
+    networkLessonsTitle: "NetworkLessons：子网划分课程", networkLessonsDescription: "系统讲解二进制和十进制子网计算、VLSM 等内容。",
+  },
+  es: {
+    studyResources: "Recursos populares para estudiar subredes", studyResourcesIntro: "Lecciones, ejercicios prácticos y repaso para exámenes de formadores de redes reconocidos.",
+    ciscoStudyTitle: "Cisco Networking Academy: Calcular subredes IPv4", ciscoStudyDescription: "Ejercicios prácticos sobre máscaras, cantidad de subredes, rangos de hosts y difusión.",
+    practicalStudyTitle: "Practical Networking: Dominio del subnetting", practicalStudyDescription: "Serie gratuita de lecciones con ejemplos resueltos y una herramienta de práctica.",
+    umassStudyTitle: "UMass: Direccionamiento interactivo de subredes", umassStudyDescription: "Ejercicio universitario sobre dimensionamiento y asignación de subredes, con soluciones.",
+    messerStudyTitle: "Professor Messer: Máscaras de subred IPv4", messerStudyDescription: "Lección en vídeo orientada a exámenes sobre máscaras y notación CIDR.",
+    w3StudyTitle: "W3Schools: Calculadora de subredes IP", w3StudyDescription: "Una herramienta rápida para consultar prefijos CIDR, máscaras, redes y rangos de hosts.",
+    geeksStudyTitle: "GeeksforGeeks: Introducción al subnetting", geeksStudyDescription: "Artículo introductorio sobre subnetting, máscaras y rangos de direcciones IPv4.",
+    tutorialStudyTitle: "TutorialsPoint: Subredes IPv4", tutorialStudyDescription: "Referencia con ejemplos de máscaras y división de redes IP.",
+    networkLessonsTitle: "NetworkLessons: Curso de subnetting", networkLessonsDescription: "Curso estructurado sobre subnetting binario y decimal, VLSM y más.",
+  },
+  ar: {
+    studyResources: "مصادر شائعة لدراسة الشبكات الفرعية", studyResourcesIntro: "دروس وتمارين عملية ومراجعة للاختبارات من جهات تعليمية معروفة في الشبكات.",
+    ciscoStudyTitle: "أكاديمية Cisco للشبكات: حساب شبكات IPv4 الفرعية", ciscoStudyDescription: "ورقة تمارين عملية عن الأقنعة وعدد الشبكات ونطاقات المضيفين وعناوين البث.",
+    practicalStudyTitle: "Practical Networking: إتقان تقسيم الشبكات", practicalStudyDescription: "سلسلة دروس مجانية تتضمن أمثلة محلولة وأداة للتدرب على الشبكات الفرعية.",
+    umassStudyTitle: "جامعة ماساتشوستس: عنونة تفاعلية للشبكات الفرعية", umassStudyDescription: "تمرين جامعي حول تحديد أحجام الشبكات الفرعية وتخصيصها مع الحلول.",
+    messerStudyTitle: "Professor Messer: أقنعة شبكات IPv4 الفرعية", messerStudyDescription: "درس فيديو للتحضير للاختبارات عن أقنعة الشبكات وترميز CIDR.",
+    w3StudyTitle: "W3Schools: حاسبة الشبكات الفرعية IP", w3StudyDescription: "أداة سريعة للتحقق من بادئات CIDR والأقنعة وعناوين الشبكات ونطاقات المضيفين.",
+    geeksStudyTitle: "GeeksforGeeks: مقدمة إلى تقسيم الشبكات", geeksStudyDescription: "مقال تمهيدي عن تقسيم الشبكات وأقنعة الشبكة ونطاقات عناوين IPv4.",
+    tutorialStudyTitle: "TutorialsPoint: شبكات IPv4 الفرعية", tutorialStudyDescription: "مرجع يتضمن أمثلة على أقنعة الشبكة وتقسيم شبكات IP.",
+    networkLessonsTitle: "NetworkLessons: دورة الشبكات الفرعية", networkLessonsDescription: "دورة منظمة عن الحساب الثنائي والعشري للشبكات الفرعية وVLSM وغيرها.",
+  },
+  id: {
+    studyResources: "Sumber populer untuk belajar subnetting", studyResourcesIntro: "Materi pelajaran, latihan langsung, dan persiapan ujian dari pengajar jaringan yang dikenal.",
+    ciscoStudyTitle: "Cisco Networking Academy: Menghitung subnet IPv4", ciscoStudyDescription: "Lembar latihan tentang mask, jumlah subnet, rentang host, dan alamat broadcast.",
+    practicalStudyTitle: "Practical Networking: Menguasai subnetting", practicalStudyDescription: "Seri pelajaran gratis dengan contoh penyelesaian dan alat latihan subnetting.",
+    umassStudyTitle: "UMass: Pengalamatan subnet interaktif", umassStudyDescription: "Latihan universitas tentang menentukan ukuran dan mengalokasikan subnet, beserta solusi.",
+    messerStudyTitle: "Professor Messer: Subnet mask IPv4", messerStudyDescription: "Video persiapan ujian tentang subnet mask dan notasi CIDR.",
+    w3StudyTitle: "W3Schools: Kalkulator subnet IP", w3StudyDescription: "Alat cepat untuk memeriksa prefix CIDR, mask, alamat jaringan, dan rentang host.",
+    geeksStudyTitle: "GeeksforGeeks: Pengenalan subnetting", geeksStudyDescription: "Artikel pengantar tentang subnetting, subnet mask, dan rentang alamat IPv4.",
+    tutorialStudyTitle: "TutorialsPoint: Subnetting IPv4", tutorialStudyDescription: "Referensi dengan contoh subnet mask dan pembagian jaringan IP.",
+    networkLessonsTitle: "NetworkLessons: Kursus subnetting", networkLessonsDescription: "Kursus terstruktur tentang subnetting biner dan desimal, VLSM, dan lainnya.",
+  },
+  pt: {
+    studyResources: "Recursos populares para estudar sub-redes", studyResourcesIntro: "Aulas, exercícios práticos e revisão para provas de educadores reconhecidos de redes.",
+    ciscoStudyTitle: "Cisco Networking Academy: Calcular sub-redes IPv4", ciscoStudyDescription: "Atividade prática sobre máscaras, quantidade de sub-redes, intervalos de hosts e broadcast.",
+    practicalStudyTitle: "Practical Networking: Domínio de sub-redes", practicalStudyDescription: "Série gratuita de aulas com exemplos resolvidos e uma ferramenta de prática.",
+    umassStudyTitle: "UMass: Endereçamento interativo de sub-redes", umassStudyDescription: "Exercício universitário sobre dimensionar e atribuir sub-redes, com soluções.",
+    messerStudyTitle: "Professor Messer: Máscaras de sub-rede IPv4", messerStudyDescription: "Aula em vídeo voltada para provas sobre máscaras e notação CIDR.",
+    w3StudyTitle: "W3Schools: Calculadora de sub-redes IP", w3StudyDescription: "Uma ferramenta rápida para conferir prefixos CIDR, máscaras, redes e intervalos de hosts.",
+    geeksStudyTitle: "GeeksforGeeks: Introdução ao subnetting", geeksStudyDescription: "Artigo introdutório sobre subnetting, máscaras e intervalos de endereços IPv4.",
+    tutorialStudyTitle: "TutorialsPoint: Sub-redes IPv4", tutorialStudyDescription: "Referência com exemplos de máscaras e divisão de redes IP.",
+    networkLessonsTitle: "NetworkLessons: Curso de sub-redes", networkLessonsDescription: "Curso estruturado sobre subnetting binário e decimal, VLSM e outros tópicos.",
+  },
+  fr: {
+    studyResources: "Ressources populaires pour étudier les sous-réseaux", studyResourcesIntro: "Cours, exercices pratiques et révisions d’examen proposés par des formateurs réseau reconnus.",
+    ciscoStudyTitle: "Cisco Networking Academy : calculer des sous-réseaux IPv4", ciscoStudyDescription: "Une fiche d’exercices sur les masques, le nombre de sous-réseaux, les plages d’hôtes et la diffusion.",
+    practicalStudyTitle: "Practical Networking : maîtriser les sous-réseaux", practicalStudyDescription: "Une série de cours gratuite avec exemples corrigés et outil d’entraînement.",
+    umassStudyTitle: "UMass : adressage interactif des sous-réseaux", umassStudyDescription: "Un exercice universitaire sur le dimensionnement et l’attribution de sous-réseaux, avec solutions.",
+    messerStudyTitle: "Professor Messer : masques de sous-réseau IPv4", messerStudyDescription: "Un cours vidéo axé sur les examens, consacré aux masques et à la notation CIDR.",
+    w3StudyTitle: "W3Schools : calculateur de sous-réseau IP", w3StudyDescription: "Un outil rapide pour vérifier les préfixes CIDR, les masques, les réseaux et les plages d’hôtes.",
+    geeksStudyTitle: "GeeksforGeeks : introduction au subnetting", geeksStudyDescription: "Un article d’introduction au subnetting, aux masques et aux plages d’adresses IPv4.",
+    tutorialStudyTitle: "TutorialsPoint : sous-réseaux IPv4", tutorialStudyDescription: "Une référence avec des exemples de masques et de division des réseaux IP.",
+    networkLessonsTitle: "NetworkLessons : cours sur les sous-réseaux", networkLessonsDescription: "Un cours structuré sur le subnetting binaire et décimal, le VLSM et plus encore.",
+  },
+};
+
 export function isLocale(value: string): value is Exclude<Locale, "en"> {
   return localeOptions.some((locale) => locale.code === value);
 }
 
 export function getMessages(locale: Locale): Messages {
-  return { ...english, ...(locale === "en" ? {} : translations[locale]), ...(locale === "en" ? {} : translationExtras[locale]) };
+  return { ...english, ...(locale === "en" ? {} : translations[locale]), ...(locale === "en" ? {} : translationExtras[locale]), ...studyResourceTranslations[locale] };
 }
 
 

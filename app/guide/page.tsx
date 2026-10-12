@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { CidrReference } from "@/components/guide/cidr-reference";
 import { GuideSeoContent } from "@/components/guide/guide-seo-content";
+import { StudyResources } from "@/components/guide/study-resources";
 import { getPageLanguageAlternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -63,6 +64,8 @@ export default function GuidePage() {
           </section>
 
           <GuideSeoContent />
+
+          <StudyResources />
 
           <section className="mt-8 border-t border-border pt-5">
             <h2 className="text-xl font-semibold tracking-tight">Next steps</h2>
